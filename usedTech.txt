@@ -1,0 +1,36 @@
+-> for creating this app main thing was Shazam API (from Rapid api, https://tinyurl.com/4u77adm9)
+we also used Rapid API client extension for vscode, it will help us in fully understanding how APIs truly works, and will
+allow us to consume APIs very easily, it is similar to thunderclient extension which will help us to send api requests, but
+it is integrated with rapidapi which contains large libraries of apis, other than this this extension also has some great
+features like generating code snippets in multiple languages depending upon our request, generating output in certain format
+, other imp technologies were tailwind and redux apart from react
+-> Other than "shazam api" we also use "ip geolocation api" -> "https://geo.ipify.org/docs" its a real-time IP Geolocation API 
+lets you look up IP locations accurately. used for around you page 
+
+--> as this app not created using basic react start code for running deveploment environment use code -> npm run dev
+    instead of npm run start, run dev will run the deveploment environment on localhost 3000, it is running because
+    we're using vite.js, and script dev which we add in package.json (also other scripts will trigger other vite's work)
+    Vite. js is a rapid development tool for modern web projects. It focuses on speed and performance 
+    by improving the development experience. Vite uses native browser ES imports to enable support for modern browsers 
+    without a build process.
+--> there is different method of using env variables in vite.js they are exposed as "import.meta.env" -> https://vitejs.dev/guide/env-and-mode.html
+    one imp thing to remember is ".env files are loaded at the start of Vite".
+
+##used dependencies-: (install these using npm install) (or just copy package.json and run npm install it will automatically install all the necessary files)
+reduxjs/toolkit, axios(for making api calls), react-dom, react-icons, react-redux, react-router-dom, swiper
+"@types/react, "@types/react-dom, "@vitejs/plugin-react, "autoprefixer, "eslint, "eslint-config-airbnb, "eslint-plugin-import,
+"eslint-plugin-jsx-a11y, "eslint-plugin-react, "eslint-plugin-react-hooks, "postcss, "tailwindcss, "vite": "^2.9.9"
+
+we also used tailwind css for this project, using tailwind css we can apply css properties just by adding specific classes
+for making our work easier we also installed a vscode extension tailwind css intelliSense it will help us in auto completing
+the classnames and also will provide description for every class we added on hovering over it.
+
+we also used swiper/react a lib used for adding swiping motion to our components better than overflow scroll used in topplay component
+for top artists
+
+in our app we have multiple time used ? after every api results this is because it checks whether data before it exists or
+not if it not exists it returns undefined which is better than error which will occur if we donot use this checks and api
+results fails
+
+one thing we might have noticed in our app is when switching genres it switches instantly that is because of redux it stores
+the prev results in cache to quickly make them visible
