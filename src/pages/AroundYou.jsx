@@ -10,6 +10,7 @@ const CountryTracks = () => {
     const [loading, setLoading] = useState(true);
     const { activeSong, isPlaying } = useSelector((state) => state.player);  //destructring particular data from redux
     const { data, isFetching, error } = useGetSongsByCountryQuery(country);  //destructuring data from api hook
+    const regionName = new Intl.DisplayNames(['en'], { type: 'region' }); // The Intl.DisplayNames object enables the consistent translation of language, region and script display names.
 
     useEffect(() => {  {/* will run every time after country changes */}
         // api call
@@ -21,10 +22,13 @@ const CountryTracks = () => {
 
     if (isFetching && loading) return <Loader title="Loading Songs around you..." />;
     if (error && country !== '') return <Error />;
-    
+    const countryName= regionName.of(country || "IN");  //taking it bydefault IN else will raise an error because of being empty ""
+
     return (
         <div className="flex flex-col">
-            <h2 className="font-bold text-3xl text-white text-left mt-4 mb-10">Around you <span className="font-black">{country}</span></h2>
+            <h2 className="font-bold text-3xl text-white text-left mt-4 mb-10">
+                Around you <span className="font-black">{countryName}</span>
+            </h2>
             <div className="flex flex-wrap sm:justify-start justify-center gap-8">
                 {data?.map((song, index) => (
                 <SongCard

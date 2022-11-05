@@ -34,3 +34,5 @@ results fails
 
 one thing we might have noticed in our app is when switching genres it switches instantly that is because of redux it stores
 the prev results in cache to quickly make them visible
+
+created public folder and redirects file to solve a issue https://github.com/adrianhajdin/project_music_player/issues/3
