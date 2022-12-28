@@ -11,12 +11,13 @@ const ArtistDetails = () => {
     const { id: artistId } = useParams();
     const { activeSong, isPlaying } = useSelector((state) => state.player);
     const { data: artistData, isFetching: isFetchingArtistDetails, error } = useGetArtistDetailsQuery(artistId);
+    const topSongsData = artistData?.data[0]?.views['top-songs']?.data;  //updating as old api deprecated
     if (isFetchingArtistDetails) return <Loader title="Loading artist details..." />;
     if (error) return <Error />;
     //reusing pause play functions
     const handlePauseClick = () => { dispatch(playPause(false)); };
     const handlePlayClick = (song, index) => {
-      const data = Object.values(artistData?.songs);
+      const data = topSongsData;
       dispatch(setActiveSong({ song, data, index }));
       dispatch(playPause(true));
     };
@@ -28,7 +29,7 @@ const ArtistDetails = () => {
           artistData={artistData}
         />
         <RelatedSongs
-          data={Object.values(artistData?.songs)}
+          data={topSongsData}
           artistId={artistId}
           isPlaying={isPlaying}
           activeSong={activeSong}
