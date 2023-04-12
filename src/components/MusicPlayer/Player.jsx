@@ -16,7 +16,7 @@ const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate
       ref.current.currentTime = seekTime;
     }, [seekTime]);
 
-    const uri = activeSong?.attributes?.previews[0].url || activeSong?.hub?.actions[1]?.uri || activeSong?.hub?.actions || ""; 
+    const uri = activeSong?.attributes?.previews?.[0]?.url || activeSong?.hub?.actions?.[1]?.uri || activeSong?.hub?.actions || ""; 
 
     return (
       <audio
