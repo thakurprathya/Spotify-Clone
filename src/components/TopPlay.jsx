@@ -15,13 +15,19 @@ import 'swiper/css/free-mode';
 
 const TopChartCard = ({ song, index, isPlaying, activeSong, handlePauseClick, handlePlayClick }) => { 
     return(
-      <div className={`w-full flex flex-row items-center hover:bg-[#4c426e] ${activeSong?.title === song?.title ? 'bg-[#4c426e]' : 'bg-transparent'} py-2 p-4 rounded-lg cursor-pointer mb-2`}>
+      <div className={`w-full flex flex-row items-center hover:bg-[#4c426e] py-2 p-4 rounded-lg cursor-pointer mb-2
+          ${
+            song?.attributes?.artwork?.url
+                  ? (activeSong?.attributes?.artwork?.url === song?.attributes?.artwork?.url ? 'bg-[#4c426e]' : 'bg-transparent') 
+                  : (activeSong?.images?.background === song?.images?.background ? 'bg-[#4c426e]' : 'bg-transparent')
+          } `}
+      >
         <h3 className="font-bold text-base text-white mr-3">{index + 1}.</h3>
         <div className="flex-1 flex flex-row justify-between items-center">
-          <img className="w-[4rem] h-[4rem] rounded-lg" src={song?.images?.coverart} alt={song?.title} />
+          <img className="w-[4rem] h-[4rem] rounded-lg" src={song?.attributes?.artwork?.url || song?.images?.background} alt={song?.attributes?.albumName || song?.title} />
           <div className="flex-1 flex flex-col justify-center mx-3">
-            <Link to={`/songs/${song.key}`}><p className="text-xl font-bold text-white">{song?.title}</p></Link>
-            <Link to={`/artists/${(song?.artists !== undefined) ? song?.artists?.[0]?.adamid : song?.[0]?.artist?.[0]?.adamid}`}><p className="text-base text-gray-300 mt-1">{song?.subtitle}</p></Link>
+            <Link to={`/songs/${song?.id}`}><p className="text-xl font-bold text-white">{song?.attributes?.albumName || song?.title}</p></Link>
+            <Link to={`/artists/${song?.relationships?.artists?.data?.[0].id  || song?.artists[0]?.adamid}`}><p className="text-base text-gray-300 mt-1">{song?.attributes?.artistName || song?.subtitle}</p></Link>
           </div>
         </div>
         <PlayPause
@@ -66,7 +72,7 @@ const TopPlay = () => {
           <div className="mt-4 flex flex-col gap-1">
             {topPlays?.map((song, index) => (
               <TopChartCard
-                key={song.key}
+                key={song?.id}
                 song={song}
                 index={index}
                 isPlaying={isPlaying}
@@ -93,11 +99,11 @@ const TopPlay = () => {
             className="mt-4">
                 {topPlays?.map((artist) => (
                 <SwiperSlide
-                  key={artist?.key}
+                  key={artist?.id}
                   style={{ width: '25%', height: 'auto' }}
                   className="shadow-lg rounded-full animate-slideright">
-                    <Link to={`/artists/${(artist?.artists !== undefined) ? artist?.artists?.[0]?.adamid : artist?.[0]?.artists?.[0]?.adamid}`}>
-                      <img src={artist?.images?.background} alt="Name" className="rounded-full w-full object-cover" />
+                    <Link to={`/artists/${artist?.relationships?.artists?.data?.[0].id}`}>
+                      <img src={artist?.attributes?.artwork?.url} alt="Name" className="rounded-full w-full object-cover" />
                     </Link>
                 </SwiperSlide>
             ))}

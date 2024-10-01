@@ -11,8 +11,8 @@ export const shazamCoreApi = createApi({  //calling createapi function
         }
     }),
     endpoints: (builder)=> ({  //creating endpoints depending upon our request url refer fetch world chart request on rapicapi ext
-        getTopCharts: builder.query({ query: ()=>'/v1/charts/world' }),  //react toolkit allows us to call gettopcharts as a hook, query is a function returning string as directly setting string will alter endpoints which our extension to it.
-        getSongsByGenre: builder.query({ query: (genre) => `/v1/charts/genre-world?genre_code=${genre}` }),
+        getTopCharts: builder.query({ query: (countryCode)=>`/v1/charts/world?country_code=${'IN'}` }),  //react toolkit allows us to call gettopcharts as a hook, query is a function returning string as directly setting string will alter endpoints which our extension to it.
+        getSongsByGenre: builder.query({ query: (genre, countryCode) => `/v1/charts/genre-world?genre_code=${genre}&country_code=${'IN'}` }),
         getSongsByCountry: builder.query({ query: (countryCode) => `/v1/charts/country?country_code=${countryCode}` }),
         getSongsBySearch: builder.query({ query: (searchTerm) => `/v1/search/multi?search_type=SONGS_ARTISTS&query=${searchTerm}` }),
         getArtistDetails: builder.query({ query: (artistId) => `/v2/artists/details?artist_id=${artistId}` }),

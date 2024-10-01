@@ -9,7 +9,7 @@ const Discover = () =>{
     const dispatch= useDispatch();  //useful in modifying the state of redux, it will initate the action that we want certain genre and useSelector will fetch it (genre selector comp on main page)
     const {activeSong, isPlaying, genreListId} = useSelector((state)=> state.player);  //selecting player info from entire state, this hook helps in selecting particular functionality of redux refer para in features/playerslice.js
     //api call
-    const {data, isFetching, error}= useGetSongsByGenreQuery(genreListId || 'POP'); //data: result of apicall, isFetching: tells whether currently fetching or not, error:tells the error
+    const {data, isFetching, error}= useGetSongsByGenreQuery(genreListId || 'POP', 'IN'); //data: result of apicall, isFetching: tells whether currently fetching or not, error:tells the error
     if(isFetching){ return <Loader title="Loading Songs..."/>; }
     if(error){ return <Error/>; }
     const genreTitle = genres.find(({value}) => value === genreListId)?.title;
@@ -26,7 +26,7 @@ const Discover = () =>{
            </div>
            <div className='flex flex-wrap sm:justify-start justify-center gap-8'> {/* wrapper for songs fetched using api */}
                 {data?.map((song, index)=>(  //used ? as a check if data existed or not
-                    <SongCard key={song.key} song={song} index={index} isPlaying={isPlaying} activeSong={activeSong} data={data} />
+                    <SongCard key={song?.id} song={song} index={index} isPlaying={isPlaying} activeSong={activeSong} data={data} />
                 ))}
            </div>
         </div>

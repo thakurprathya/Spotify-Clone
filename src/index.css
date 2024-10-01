@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
 /* Active Navigation Link */
 .active {
   @apply text-cyan-500;

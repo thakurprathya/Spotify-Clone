@@ -16,8 +16,8 @@ const SongDetails = () => {
     const { data: songData, isFetching: isFetchingSongDetails } = useGetSongDetailsQuery({ songid });
 
     if (isFetchingSongDetails && isFetchinRelatedSongs){ return <Loader title="Searching song details" />; }
-    if (error) return <Error />;
-    // console.log(songData);
+    // if (error) return <Error />;
+
     //copying functions from songcard component
     const handlePauseClick = () => {
         dispatch(playPause(false));
@@ -26,6 +26,7 @@ const SongDetails = () => {
         dispatch(setActiveSong({ song, data, index }));
         dispatch(playPause(true));
     };
+console.log(songid, artistId, activeSong, songData)
     return (
         <div className="flex flex-col">
             <DetailsHeader artistId={artistId} songData={songData}/>
